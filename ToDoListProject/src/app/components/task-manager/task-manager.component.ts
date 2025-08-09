@@ -5,6 +5,10 @@ import { ThemeService } from '../../services/theme.service';
 import { Task, ActivityType } from '../../models/task';
 import { FormsModule } from '@angular/forms';
 
+/**
+ * Main component that manages the todo list application.
+ * Handles task operations, theme switching, and data persistence.
+ */
 @Component({
   selector: 'app-task-manager',
   standalone: true,
@@ -13,12 +17,14 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './task-manager.component.css'
 })
 export class TaskManagerComponent implements OnInit {
+  // Signal to track tasks with reactive updates
   tasks = signal<Task[]>([]);
   today = new Date();
   isDarkMode: Signal<boolean>;
   editingTask: Task | null = null;
   private saveTimeout: any;
   
+  // Computed property that returns appropriate greeting based on time of day
   greeting = computed(() => {
     const hour = new Date().getHours();
     if (hour < 12) return 'Good Morning';
@@ -29,13 +35,14 @@ export class TaskManagerComponent implements OnInit {
   constructor(private themeService: ThemeService) {
     this.isDarkMode = this.themeService.getDarkMode();
     
-    // Set up effect to handle tasks persistence
+    // Set up effect to automatically save tasks when they change
     effect(() => {
       const currentTasks = this.tasks();
       this.debouncedSaveTasks(currentTasks);
     });
   }
 
+  // Load saved tasks and handle new task creation on component initialization
   ngOnInit() {
     this.loadTasks();
     const newTaskJson = sessionStorage.getItem('newTask');
@@ -46,6 +53,7 @@ export class TaskManagerComponent implements OnInit {
     }
   }
 
+  // Load tasks from localStorage with error handling
   private loadTasks(): void {
     try {
       const savedTasks = localStorage.getItem('tasks');
@@ -57,6 +65,7 @@ export class TaskManagerComponent implements OnInit {
     }
   }
 
+  // Debounced save operation to prevent excessive storage writes
   private debouncedSaveTasks(tasks: Task[]): void {
     if (this.saveTimeout) {
       clearTimeout(this.saveTimeout);
@@ -70,6 +79,7 @@ export class TaskManagerComponent implements OnInit {
     }, 300);
   }
 
+  // Returns appropriate icon based on activity type
   getActivityIcon(activity: ActivityType): string {
     switch (activity) {
       case 'Idea': return 'lightbulb';
@@ -81,10 +91,12 @@ export class TaskManagerComponent implements OnInit {
     }
   }
 
+  // Toggle between light and dark theme
   toggleTheme(): void {
     this.themeService.toggleTheme();
   }
 
+  // Add a new task with the given data
   addTask(taskData: { title: string; activity: ActivityType; description?: string }): void {
     if (taskData.title.trim()) {
       const newTask: Task = {
@@ -99,6 +111,7 @@ export class TaskManagerComponent implements OnInit {
     }
   }
 
+  // Toggle task completion status
   toggleTask(taskId: number): void {
     this.tasks.update(tasks => 
       tasks.map(task => 
@@ -109,14 +122,17 @@ export class TaskManagerComponent implements OnInit {
     );
   }
 
+  // Delete a task by its ID
   deleteTask(taskId: number): void {
     this.tasks.update(tasks => tasks.filter(task => task.id !== taskId));
   }
 
+  // Start editing a task
   startEdit(task: Task): void {
     this.editingTask = { ...task };
   }
 
+  // Save edited task changes
   saveEdit(): void {
     if (this.editingTask) {
       this.tasks.update(tasks =>
@@ -130,6 +146,7 @@ export class TaskManagerComponent implements OnInit {
     }
   }
 
+  // Cancel task editing
   cancelEdit(): void {
     this.editingTask = null;
   }
