@@ -1,0 +1,40 @@
+<div class="task-input-container">
+    <form class="task-input-form" (ngSubmit)="onSubmit()">
+        <div class="activities-grid">
+            @for (activity of activities; track activity.type) {
+                <div class="activity-card" 
+                     [class.selected]="selectedActivity === activity.type"
+                     (click)="selectActivity(activity.type)"
+                     [style.--activity-color]="activity.color">
+                    <span class="material-icons activity-icon">{{activity.icon}}</span>
+                    <div class="activity-info">
+                        <h3>{{activity.type}}</h3>
+                        <p>{{activity.taskCount}} Tasks</p>
+                    </div>
+                    <span class="material-icons select-icon">chevron_right</span>
+                </div>
+            }
+        </div>
+
+        <div class="input-group" [class.active]="selectedActivity">
+            <div class="input-wrapper">
+                <span class="material-icons input-icon">add_task</span>
+                <input
+                    type="text"
+                    [(ngModel)]="newTaskTitle"
+                    name="newTaskTitle"
+                    [placeholder]="selectedActivity ? 'Add new ' + selectedActivity + ' task...' : 'Select an activity first...'"
+                    class="task-input"
+                    [disabled]="!selectedActivity"
+                    required
+                >
+            </div>
+            <button type="submit" 
+                    class="add-button" 
+                    [disabled]="!newTaskTitle.trim() || !selectedActivity">
+                <span class="button-text">Create Task</span>
+                <span class="material-icons">arrow_forward</span>
+            </button>
+        </div>
+    </form>
+</div>

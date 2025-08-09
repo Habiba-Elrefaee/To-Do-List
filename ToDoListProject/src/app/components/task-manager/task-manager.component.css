@@ -1,0 +1,440 @@
+.task-manager {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.greeting {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.date-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeDown 0.5s ease-out;
+}
+
+.current-date h2 {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.current-date p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin: 0.5rem 0 0;
+}
+
+.tasks-section {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    animation: fadeUp 0.5s ease-out;
+}
+
+.tasks-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.tasks-header h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.add-task-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-task-button:hover {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--primary-color-transparent);
+}
+
+.tasks-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.task-card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 1.25rem;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.task-card.completed {
+    animation: completeTask 0.3s ease-out forwards;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.task-status {
+    padding-right: 0.5rem;
+}
+
+.checkbox-container {
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary-color);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex: 1;
+}
+
+.activity-badge {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.activity-badge.idea {
+    background: rgba(179, 136, 255, 0.1);
+    color: #B388FF;
+}
+
+.activity-badge.food {
+    background: rgba(255, 128, 171, 0.1);
+    color: #FF80AB;
+}
+
+.activity-badge.work {
+    background: rgba(130, 177, 255, 0.1);
+    color: #82B1FF;
+}
+
+.activity-badge.sport {
+    background: rgba(185, 246, 202, 0.1);
+    color: #B9F6CA;
+}
+
+.activity-badge.music {
+    background: rgba(255, 209, 128, 0.1);
+    color: #FFD180;
+}
+
+.task-details {
+    flex: 1;
+}
+
+.task-details h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.task-details p {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.task-card:hover .task-actions {
+    opacity: 1;
+}
+
+.edit-btn, .delete-btn, .save-btn, .cancel-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover {
+    background: var(--primary-color-transparent);
+    color: var(--primary-color);
+}
+
+.delete-btn:hover {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.save-btn:hover {
+    background: rgba(46, 213, 115, 0.1);
+    color: #2ed573;
+}
+
+.cancel-btn:hover {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+.task-edit-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--input-bg);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.edit-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-color-transparent);
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-secondary);
+}
+
+.empty-state .material-icons {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.completed .task-details h4 {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes completeTask {
+    0% {
+        background: var(--card-bg);
+    }
+    50% {
+        background: rgba(46, 213, 115, 0.1);
+    }
+    100% {
+        background: var(--card-bg);
+    }
+}
+
+@media (max-width: 768px) {
+    .task-manager {
+        padding: 1rem;
+    }
+
+    .current-date h2 {
+        font-size: 2rem;
+    }
+
+    .tasks-section {
+        padding: 1rem;
+    }
+
+    .add-task-button {
+        padding: 0.5rem 1rem;
+    }
+}
+
+/* Update dark mode colors for better visibility */
+:host-context(.dark-theme) {
+    .task-card {
+        background: var(--card-bg);
+        border-color: var(--border-color);
+    }
+
+    .task-details h4 {
+        color: var(--text-primary);
+    }
+
+    .task-details p {
+        color: var(--text-secondary);
+    }
+
+    .activity-badge.idea {
+        background: rgba(179, 136, 255, 0.2);
+        color: #d4b8ff;
+    }
+
+    .activity-badge.food {
+        background: rgba(255, 128, 171, 0.2);
+        color: #ffb3d1;
+    }
+
+    .activity-badge.work {
+        background: rgba(130, 177, 255, 0.2);
+        color: #b3d1ff;
+    }
+
+    .activity-badge.sport {
+        background: rgba(185, 246, 202, 0.2);
+        color: #d4f8e2;
+    }
+
+    .activity-badge.music {
+        background: rgba(255, 209, 128, 0.2);
+        color: #ffe0b3;
+    }
+
+    .edit-input {
+        background: var(--input-bg);
+        color: var(--text-primary);
+        border-color: var(--border-color);
+    }
+
+    .edit-input::placeholder {
+        color: var(--text-secondary);
+    }
+}

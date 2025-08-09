@@ -1,0 +1,55 @@
+<div class="task-details" [class.dark-theme]="isDarkMode()">
+    <header class="page-header" @fadeSlide>
+        <button class="back-button" (click)="goBack()">
+            <span class="material-icons">arrow_back</span>
+        </button>
+        <h1>Create New Task</h1>
+    </header>
+
+    <div class="form-container" @formAnimation>
+        <div class="selected-activity">
+            <div class="activity-badge" [class]="selectedActivity?.toLowerCase()">
+                <span class="material-icons">
+                    {{ getActivityIcon(selectedActivity) }}
+                </span>
+                <span>{{ selectedActivity }}</span>
+            </div>
+        </div>
+
+        <form (ngSubmit)="createTask()">
+            <div class="form-group" @fadeSlide>
+                <label for="taskTitle">Task Title</label>
+                <input 
+                    type="text" 
+                    id="taskTitle" 
+                    class="form-control"
+                    [(ngModel)]="taskTitle"
+                    name="taskTitle"
+                    required
+                    placeholder="Enter task title"
+                >
+            </div>
+
+            <div class="form-group" @fadeSlide>
+                <label for="taskDescription">Description (Optional)</label>
+                <textarea 
+                    id="taskDescription" 
+                    class="form-control"
+                    [(ngModel)]="taskDescription"
+                    name="taskDescription"
+                    placeholder="Add task description"
+                    rows="4"
+                ></textarea>
+            </div>
+
+            <button 
+                type="submit" 
+                class="create-button"
+                [disabled]="!taskTitle.trim()"
+            >
+                <span class="material-icons">add_task</span>
+                Create Task
+            </button>
+        </form>
+    </div>
+</div>

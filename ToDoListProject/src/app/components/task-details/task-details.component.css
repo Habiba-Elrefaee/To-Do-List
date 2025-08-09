@@ -1,0 +1,171 @@
+.task-details {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.back-button {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.form-container {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+}
+
+.selected-activity {
+    margin-bottom: 2rem;
+}
+
+.activity-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.activity-badge.idea {
+    background: rgba(179, 136, 255, 0.1);
+    color: #B388FF;
+}
+
+.activity-badge.food {
+    background: rgba(255, 128, 171, 0.1);
+    color: #FF80AB;
+}
+
+.activity-badge.work {
+    background: rgba(130, 177, 255, 0.1);
+    color: #82B1FF;
+}
+
+.activity-badge.sport {
+    background: rgba(185, 246, 202, 0.1);
+    color: #B9F6CA;
+}
+
+.activity-badge.music {
+    background: rgba(255, 209, 128, 0.1);
+    color: #FFD180;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    opacity: 0.9; /* Ensure labels are always visible */
+}
+
+.form-control {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px var(--primary-color-transparent);
+    outline: none;
+}
+
+textarea.form-control {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.create-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.create-button:hover:not(:disabled) {
+    background: var(--primary-color-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--primary-color-transparent);
+}
+
+.create-button:disabled {
+    background: var(--primary-color);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.5; /* Make disabled button visible but clearly disabled */
+    color: white; /* Ensure text remains visible */
+}
+
+.create-button .material-icons {
+    font-size: 1.25rem;
+    transition: transform 0.3s ease;
+}
+
+.create-button:hover:not(:disabled) .material-icons {
+    transform: translateX(4px);
+}
+
+/* Add specific dark mode overrides */
+:host-context(.dark-theme) {
+    .form-container {
+        border: 1px solid var(--border-color);
+    }
+    
+    label {
+        color: var(--text-primary);
+        opacity: 0.9;
+    }
+    
+    .create-button:disabled {
+        background: var(--primary-color);
+        opacity: 0.5;
+        color: white;
+    }
+}

@@ -1,0 +1,25 @@
+<div class="activity-selection">
+    <header class="page-header" @fadeSlide>
+        <button class="back-button" (click)="goBack()">
+            <span class="material-icons">arrow_back</span>
+        </button>
+        <h1>Select Activity</h1>
+    </header>
+
+    <div class="activities-grid" @activityList>
+        @for (activity of activities; track activity.type) {
+            <div class="activity-card" 
+                 (click)="selectActivity(activity.type)"
+                 [style.--activity-color]="activity.color">
+                <div class="activity-icon">
+                    <span class="material-icons">{{activity.icon}}</span>
+                </div>
+                <div class="activity-info">
+                    <h3>{{activity.type}}</h3>
+                    <p>{{activity.taskCount}} Tasks</p>
+                </div>
+                <span class="material-icons arrow-icon">arrow_forward</span>
+            </div>
+        }
+    </div>
+</div>

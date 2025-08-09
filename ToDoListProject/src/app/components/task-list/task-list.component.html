@@ -1,0 +1,64 @@
+<div class="task-list">
+    <div class="calendar-header">
+        <div class="date-section">
+            <h2>{{ today | date:'EEEE' }}</h2>
+            <p>{{ today | date:'MMMM d' }}</p>
+        </div>
+        <div class="task-count">
+            {{ tasks.length }} Tasks
+        </div>
+    </div>
+
+    <div class="tasks-container">
+        @for (task of tasks; track task.id) {
+            <div class="task-item" [class.completed]="task.completed">
+                @if (editingTask?.id === task.id) {
+                    <div class="edit-form">
+                        <input 
+                            type="text" 
+                            [ngModel]="editingTask?.title"
+                            (ngModelChange)="editingTask!.title = $event"
+                            class="edit-input"
+                            (keyup.enter)="saveEdit()"
+                            (keyup.escape)="cancelEdit()"
+                        >
+                        <div class="edit-actions">
+                            <button class="save-btn" (click)="saveEdit()">
+                                <span class="material-icons">check</span>
+                            </button>
+                            <button class="cancel-btn" (click)="cancelEdit()">
+                                <span class="material-icons">close</span>
+                            </button>
+                        </div>
+                    </div>
+                } @else {
+                    <div class="task-content">
+                        <label class="checkbox-container">
+                            <input 
+                                type="checkbox" 
+                                [checked]="task.completed"
+                                (change)="toggleTask.emit(task.id)"
+                                class="task-checkbox"
+                            >
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="task-title" [class.completed]="task.completed">{{ task.title }}</span>
+                        <div class="task-actions">
+                            <button class="edit-btn" (click)="startEditing(task)">
+                                <span class="material-icons">edit</span>
+                            </button>
+                            <button class="delete-btn" (click)="deleteTask.emit(task.id)">
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        } @empty {
+            <div class="empty-state">
+                <span class="material-icons">task</span>
+                <p>No tasks yet. Add one above!</p>
+            </div>
+        }
+    </div>
+</div>

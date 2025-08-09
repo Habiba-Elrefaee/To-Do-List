@@ -1,0 +1,217 @@
+.task-list {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.date-section h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    margin: 0;
+    font-weight: 600;
+}
+
+.date-section p {
+    color: #7f8c8d;
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+}
+
+.task-count {
+    background: #f8f9fa;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    color: #6c5ce7;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.task-item {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 1rem;
+    transition: all 0.3s ease;
+}
+
+.task-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.1);
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.checkbox-container {
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    user-select: none;
+    width: 24px;
+    height: 24px;
+}
+
+.task-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #6c5ce7;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.task-checkbox:checked ~ .checkmark {
+    background-color: #6c5ce7;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.task-checkbox:checked ~ .checkmark:after {
+    display: block;
+    left: 8px;
+    top: 4px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.task-title {
+    flex: 1;
+    font-size: 1rem;
+    color: #2c3e50;
+    transition: all 0.3s ease;
+}
+
+.task-title.completed {
+    text-decoration: line-through;
+    color: #95a5a6;
+}
+
+.task-actions {
+    display: flex;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.task-item:hover .task-actions {
+    opacity: 1;
+}
+
+.edit-btn, .delete-btn {
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #95a5a6;
+}
+
+.edit-btn:hover {
+    background: #f1f3f5;
+    color: #6c5ce7;
+}
+
+.delete-btn:hover {
+    background: #fff5f5;
+    color: #e74c3c;
+}
+
+.edit-form {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.edit-input {
+    flex: 1;
+    padding: 0.5rem;
+    border: 2px solid #6c5ce7;
+    border-radius: 8px;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.edit-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.save-btn, .cancel-btn {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.save-btn {
+    background: #6c5ce7;
+    color: white;
+}
+
+.save-btn:hover {
+    background: #5f3dc4;
+}
+
+.cancel-btn {
+    background: #e9ecef;
+    color: #495057;
+}
+
+.cancel-btn:hover {
+    background: #dee2e6;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #95a5a6;
+    background: #f8f9fa;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.empty-state .material-icons {
+    font-size: 3rem;
+    color: #6c5ce7;
+}

@@ -1,0 +1,102 @@
+<div class="task-manager">
+    <div class="top-bar">
+        <h2>{{ greeting() }}</h2>
+        <button class="theme-toggle" (click)="toggleTheme()">
+            <span class="material-icons">{{ isDarkMode() ? 'light_mode' : 'dark_mode' }}</span>
+        </button>
+    </div>
+
+    <div class="date-header">
+        <div class="current-date">
+            <h2>{{ today | date:'EEEE' }}</h2>
+            <p>{{ today | date:'MMMM d, y' }}</p>
+        </div>
+    </div>
+
+    <div class="tasks-section">
+        <div class="tasks-header">
+            <h3>My Tasks</h3>
+            <button class="add-task-button" routerLink="/select-activity">
+                <span class="material-icons">add</span>
+                Add New Task
+            </button>
+        </div>
+
+        <div class="tasks-grid">
+            @for (task of tasks(); track task.id) {
+                <div class="task-card" [class.completed]="task.completed">
+                    <div class="task-content">
+                        <div class="task-status">
+                            <label class="checkbox-container">
+                                <input 
+                                    type="checkbox" 
+                                    [checked]="task.completed"
+                                    (change)="toggleTask(task.id)"
+                                >
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        
+                        <div class="task-info">
+                            <div class="activity-badge" [class]="task.activity.toLowerCase()">
+                                <span class="material-icons">
+                                    {{ getActivityIcon(task.activity) }}
+                                </span>
+                            </div>
+                            @if (editingTask?.id === task.id) {
+                                <div class="task-edit-form">
+                                    <input 
+                                        type="text" 
+                                        class="edit-input"
+                                        [ngModel]="editingTask?.title ?? ''"
+                                        (ngModelChange)="editingTask!.title = $event"
+                                        placeholder="Task title"
+                                        required
+                                    >
+                                    <textarea 
+                                        class="edit-input"
+                                        [ngModel]="editingTask?.description ?? ''"
+                                        (ngModelChange)="editingTask!.description = $event"
+                                        placeholder="Task description (optional)"
+                                        rows="2"
+                                    ></textarea>
+                                    <div class="edit-actions">
+                                        <button class="save-btn" (click)="saveEdit()">
+                                            <span class="material-icons">check</span>
+                                        </button>
+                                        <button class="cancel-btn" (click)="cancelEdit()">
+                                            <span class="material-icons">close</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            } @else {
+                                <div class="task-details">
+                                    <h4>{{ task.title }}</h4>
+                                    @if (task.description) {
+                                        <p>{{ task.description }}</p>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+                        <div class="task-actions">
+                            @if (editingTask?.id !== task.id) {
+                                <button class="edit-btn" (click)="startEdit(task)">
+                                    <span class="material-icons">edit</span>
+                                </button>
+                                <button class="delete-btn" (click)="deleteTask(task.id)">
+                                    <span class="material-icons">delete</span>
+                                </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            } @empty {
+                <div class="empty-state">
+                    <span class="material-icons">task</span>
+                    <p>No tasks yet. Add your first task!</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
